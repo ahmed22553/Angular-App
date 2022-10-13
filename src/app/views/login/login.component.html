@@ -1,0 +1,42 @@
+<form #userForm="ngForm" class="container mt-5" (ngSubmit)="login(userForm.value)">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input 
+        type="text"
+         class="form-control" 
+         id="email"
+         ngModel
+         name="email"
+         #email="ngModel"
+         required
+         email
+         >
+         <div class="error d-flex justify-content-center"  *ngIf="email.touched && email.invalid">
+          <div *ngIf="email.errors?.['required']">*Email is required*</div> 
+          <div *ngIf="email.errors?.['email']">*Please enter valid email*</div> 
+         </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input 
+        type="password"
+         class="form-control" 
+         id="password"
+         ngModel
+         name="password"
+         #password="ngModel"
+         required
+         minlength="6"
+         >
+         <div class="error d-flex justify-content-center"  *ngIf="password.touched && password.invalid">
+          <div *ngIf="password.errors?.['required']">*Password is required*</div> 
+          <div *ngIf="password.errors?.['minlength']">
+              *Password minlength is {{password.errors?.['minlength'].requiredLength}}
+              .... You have entered {{password.errors?.['minlength'].actualLength}}*</div> 
+         </div>
+      </div>
+      <div class="error d-flex justify-content-center" *ngIf="invalidLogin">Please check email or password</div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
+  </form>
